@@ -81,8 +81,8 @@ public class ValidateTransaction extends AppBase{
 			driver.findElement(By.className("android.widget.ImageButton")).click();
 		} catch (InterruptedException e){
 			// TODO Auto-generated catch block
-			test.log(LogStatus.ERROR, "Issue while doing a Gas Recharge");
-			msg="Issue while doing a Gas Recharge";
+			test.log(LogStatus.ERROR, "Issue while validating transfered amount");
+			msg="Issue while validating transfered amount";
 			e.printStackTrace();
 		}
 	}

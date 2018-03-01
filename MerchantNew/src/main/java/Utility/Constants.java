@@ -2,10 +2,6 @@ package Utility;
 
 public class Constants {
 
-	//Driver paths 
-	public static final String ChromeDriver_path = "/home/pay1lap-51/Downloads/chromedriver.exe";
-	public static final String GeckoDriver_path = System.getProperty("user.dir")+"/Drivers/GeckoDriver/geckodriver";
-	public static final String InternetExplorer_Driver_path ="";
 	//Properties file path
 	public static final String Properties_file_path = System.getProperty("user.dir")+"/src/test/resources/Merchant.properties";
 	public static final String ReProperties_file_path = System.getProperty("user.dir")+"/src/test/resources/Remit.properties";

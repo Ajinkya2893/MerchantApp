@@ -66,23 +66,14 @@ public class AddRemitter extends AppBase{
 			Util = new Utility(this.test, this.driver);
 			Util.takeScreenShot("Successfully Logged in");
 			test.log(LogStatus.PASS, "Successfully logged in the System");
-			driver.findElement(By.xpath(prop.getProperty("gasIcon"))).click(); test.log(LogStatus.INFO, "Clicking on DTH icon");
-			driver.findElement(By.xpath(prop.getProperty("gasProduct"))).click();test.log(LogStatus.INFO, "Selecting the DTH Product");//AirtelDth change any service provider needed
-			Thread.sleep(1000);
-			driver.findElement(By.id(prop.getProperty("mobilenumb"))).sendKeys("Mobile");test.log(LogStatus.INFO, "Entering the Mobile Number");
-			driver.findElement(By.xpath(prop.getProperty("Canumber"))).sendKeys(data.get("CA Number"));test.log(LogStatus.INFO, "Entering the CA Number");
-			driver.findElement(By.xpath(prop.getProperty("billNonumber"))).sendKeys(data.get("Bill No"));test.log(LogStatus.INFO, "Entering the Bill No");
-			driver.findElement(By.xpath(prop.getProperty("fetchBill"))).click();test.log(LogStatus.INFO, "Clicking on Fetch bill Button");
-			Util.takeScreenShot("Bill Fetched Successfully");
-			driver.findElement(By.xpath(prop.getProperty("elecpaybill"))).click();
-			Util.takeScreenShot("Bill fetch Successfully by BBPS");
-			driver.findElement(By.xpath("//android.widget.TextView[@text='NO']")).click();
-			driver.findElement(By.className("android.widget.ImageButton")).click();
-			driver.findElement(By.className("android.widget.ImageButton")).click();
+			driver.findElement(By.xpath(prop.getProperty("DMTIcon"))).click(); test.log(LogStatus.INFO, "Clicking on DMT icon");
+			driver.findElement(By.xpath(prop.getProperty("Search/AddBtn"))).sendKeys(data.get("Search"));test.log(LogStatus.INFO, "Enter Search Number");
+			Thread.sleep(5000);
+			driver.findElement(By.id(prop.getProperty("SelectBen"))).click(); test.log(LogStatus.INFO, "Clicking on Ben icon");Thread.sleep(3000);
 		} catch (InterruptedException e){
 			// TODO Auto-generated catch block
 			test.log(LogStatus.ERROR, "Issue while doing a Gas Recharge");
-			msg="Issue while doing a Gas Recharge";
+			msg="Issue while adding remitter"; 
 			e.printStackTrace();
 		}
 	}

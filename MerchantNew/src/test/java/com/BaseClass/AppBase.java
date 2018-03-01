@@ -88,7 +88,7 @@ public class AppBase {
 			Thread.sleep(2000);
 			for (int i=0 ; i<3; i++) new TouchAction(driver).longPress(1000, 450).moveTo(120, 450).release().perform();
 			test.log(LogStatus.INFO, "Going through the intro Screen");Thread.sleep(2000);
-			new TouchAction(driver).longPress(1000, 450).moveTo(500, 450).release().perform();}
+			new TouchAction(driver).tap(1000, 450).perform().release();}
 		catch (Exception e) {
 			System.out.println("Unable to Swipe through the Screens");
 			test.log(LogStatus.ERROR, "Unable to Swipe through the Screens");

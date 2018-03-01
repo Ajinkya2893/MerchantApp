@@ -39,8 +39,6 @@ public class RetailerLogin extends AppBase{
 			xls = new Excel_Reader(Constants.RetailerLogin); // Loading the Excel Sheet 
 			rep = ExtentManager.getInstance(); // Getting the Extent Report Instance 
 			test  = rep.startTest(this.getClass().getSimpleName()); //Starting the Extent Report test
-			//Util = new Utility(test, driver);
-			//this.driver= driver;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,6 +86,7 @@ public class RetailerLogin extends AppBase{
 			test.log(LogStatus.ERROR, "Unable to Access Login Page and Get Login");
 			fail = true;
 			msg ="Unable to Access Login Page and Get Login";
+			new SkipException(msg);
 		}
 		rep.endTest(test);
 		return driver;

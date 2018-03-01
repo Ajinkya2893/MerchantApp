@@ -85,7 +85,7 @@ public class TransferMoney extends AppBase{
 		} catch (InterruptedException e){
 			// TODO Auto-generated catch block
 			test.log(LogStatus.ERROR, "Issue while doing a Gas Recharge");
-			msg="Issue while doing a Gas Recharge";
+			msg="Issue while transfering amount";
 			e.printStackTrace();
 		}
 	}

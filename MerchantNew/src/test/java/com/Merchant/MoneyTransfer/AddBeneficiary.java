@@ -71,13 +71,14 @@ public class AddBeneficiary extends AppBase {
 			driver.findElement(By.xpath(prop.getProperty("AddBenBtn"))).click();test.log(LogStatus.INFO, "Clicking on Add Beneficiary button");
 			driver.findElement(By.xpath(prop.getProperty("AccountNumb"))).sendKeys(data.get("Account No"));test.log(LogStatus.INFO, "Enter Account Number");
 			driver.findElement(By.xpath(prop.getProperty("BankName"))).sendKeys(data.get("Bank Name"));test.log(LogStatus.INFO, "Enter Bank Name");
-			driver.findElement(By.xpath(prop.getProperty("BenMobile"))).click();test.log(LogStatus.INFO, "Clicking on Add Beneficiary button");
-	
-			
+			driver.findElement(By.id("com.mindsarray.pay1:id/input_layout_mobile")).click();
+			driver.findElement(By.xpath(prop.getProperty("BenMobile"))).sendKeys(data.get("BenNumber"));test.log(LogStatus.INFO, "Enter Mobile No.");
+			driver.findElement(By.xpath(prop.getProperty("ProceedBtn"))).click();test.log(LogStatus.INFO, "Clicking on Add Beneficiary button");
+			Util.takeScreenShot("Entered details");		
 		} catch (InterruptedException e){
 			// TODO Auto-generated catch block
-			test.log(LogStatus.ERROR, "Issue while doing a Gas Recharge");
-			msg="Issue while doing a Gas Recharge";
+			test.log(LogStatus.ERROR, "Issue while Adding beneficiary");
+			msg="Issue while Adding beneficiary";
 			e.printStackTrace();
 		}
 	}

@@ -1,17 +1,18 @@
 package com.Merchant.Login;
 
-import java.net.MalformedURLException;
+import java.io.File;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
+import io.selendroid.common.SelendroidCapabilities;
+import io.selendroid.common.device.DeviceTargetPlatform;
 
 public class test {
 
@@ -21,21 +22,16 @@ public class test {
 
 	@SuppressWarnings("rawtypes")
 	@BeforeTest
-	public void setUp() throws MalformedURLException {
+	public void setUp() throws Exception {
 		// Created object of DesiredCapabilities class.
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-
-		// Set android deviceName desired capability. Set your device name.
-		capabilities.setCapability("deviceName", "TOQOPBH6AYBQCIP7");
-
-		// Set BROWSER_NAME desired capability. It's Android in our case here.
-		capabilities.setCapability(CapabilityType.BROWSER_NAME, "Android");
-
-		// Set android VERSION desired capability. Set your mobile device's OS version.
-		capabilities.setCapability(CapabilityType.VERSION, "6.0");
-
-		// Set android platformName desired capability. It's Android in our case here.
-		capabilities.setCapability("platformName", "Android");
+		
+		SelendroidCapabilities capabilities = SelendroidCapabilities.emulator(DeviceTargetPlatform.ANDROID22, "Android Emulator");
+		File	app=new	File("/home/pay1lap-51/Downloads/release-9.1.apk");//To	create	a	file	object	to	specify	the	app	path
+		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Selendroid");
+		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "4.1.2");
+		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "emulator-5554");
+		capabilities.setCapability(MobileCapabilityType.APP, app);
 
 		// Set android appPackage desired capability.
 		// Set your application's appPackage if you are using any other app.
@@ -86,7 +82,7 @@ public class test {
 		driver.findElement(By.id("com.mindsarray.pay1:id/userNameEditText")).click();
 		driver.findElement(By.id("com.mindsarray.pay1:id/userNameEditText")).sendKeys("9819042543");
 		driver.findElement(By.id("com.mindsarray.pay1:id/passwordEditText")).sendKeys("12345");
-		driver.hideKeyboard();
+		//driver.hideKeyboard();
 		Thread.sleep(2000);
 		driver.findElement(By.id("com.mindsarray.pay1:id/loginTextView")).click();
 	}
@@ -129,7 +125,7 @@ public class test {
 		
 	}
 	
-	@Test
+	//@Test
 	public void getElectrcity() throws InterruptedException {
 		driver.findElement(By.xpath("//android.widget.TextView[@text='Electricity']")).click();
 		driver.findElement(By.xpath("//android.widget.TextView[@text='Reliance Energy (Mumbai)']")).click();
@@ -140,7 +136,7 @@ public class test {
 		driver.findElement(By.xpath("//android.widget.Button[@text='FETCH BILL']")).click();
 	}
 	
-	@Test
+	//@Test
 	public void getGas() throws InterruptedException {
 		driver.findElement(By.xpath("//android.widget.TextView[@text='Gas']")).click();
 		driver.findElement(By.xpath("//android.widget.TextView[@text='Mahanagar Gas Limited']")).click();
@@ -150,7 +146,7 @@ public class test {
 		driver.findElement(By.xpath("//android.widget.Button[@text='FETCH BILL']")).click();
 	}
 	
-	@Test
+	//@Test
 	public void LandLine() throws InterruptedException {
 		driver.findElement(By.xpath("//android.widget.TextView[@text='Landline']")).click();
 		driver.findElement(By.xpath("//android.widget.TextView[@text='Airtel']")).click();
@@ -161,7 +157,7 @@ public class test {
 		driver.findElement(By.xpath("//android.widget.Button[@text='FETCH BILL']")).click();
 	}
 	
-	@Test
+	//@Test
 	public void Dmt() {
 		driver.findElement(By.id("/home/pay1lap-51/android-sdks")).sendKeys("9819042543");
 		driver.findElement(By.id("com.mindsarray.pay1:id/iconSelectBene")).click(); //Select bene
@@ -186,7 +182,7 @@ public class test {
 		driver.findElement(By.xpath("//android.widget.LinearLayout[@index='3']")).click(); //Report
 	}
 	
-	@Test
+	//@Test
 	public void Settings() {
 		
 	}
