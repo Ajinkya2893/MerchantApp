@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [TS_MobileRecharge]">
+  <test thread-count="5" name="Post Paid Recharge(failed)">
+    <classes>
+      <class name="com.Merchant.Recharge.PostpaidRecharge">
+        <methods>
+          <include name="reportTestResult"/>
+          <include name="mobileRecharge"/>
+          <include name="Testskip"/>
+          <include name="reporter"/>
+        </methods>
+      </class> <!-- com.Merchant.Recharge.PostpaidRecharge -->
+    </classes>
+  </test> <!-- Post Paid Recharge(failed) -->
+</suite> <!-- Failed suite [TS_MobileRecharge] -->

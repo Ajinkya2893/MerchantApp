@@ -20,7 +20,6 @@ import Utility.Constants;
 import Utility.DataUtils;
 import Utility.Excel_Reader;
 import Utility.ExtentManager;
-import Utility.Utility;
 
 public class TransferMoney extends AppBase{
 
@@ -53,6 +52,8 @@ public class TransferMoney extends AppBase{
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
 			skip = true;
 			msg= "Skipping the test as runmode is N";
+			rep.endTest(test);
+			rep.flush();
 			throw new SkipException("Skipping test case" + this.getClass().getSimpleName() + " as runmode set to NO in excel");
 		}
 	}
@@ -61,11 +62,15 @@ public class TransferMoney extends AppBase{
 	public void GasRecharge(Hashtable<String,String> data){
 		count++;
 		try {
+			if (data.get("Runmode").equalsIgnoreCase("N")){
+				test.log(LogStatus.SKIP, "Skipping the test as this set of data is set to N");
+				skip = true;
+				rep.endTest(test);
+				rep.flush();
+				throw new SkipException("Skipping the test as this set of data is set to N");
+			}
 			this.driver = new RetailerLogin().getLogin(data);
 			Thread.sleep(3000);
-			Util = new Utility(this.test, this.driver);
-			Util.takeScreenShot("Successfully Logged in");
-			test.log(LogStatus.PASS, "Successfully logged in the System");
 			driver.findElement(By.xpath(prop.getProperty("DMTIcon"))).click(); test.log(LogStatus.INFO, "Clicking on DMT icon");
 			driver.findElement(By.xpath(prop.getProperty("Search/AddBtn"))).sendKeys(data.get("Search"));test.log(LogStatus.INFO, "Enter Search Number");
 			Thread.sleep(5000);
@@ -115,6 +120,8 @@ public class TransferMoney extends AppBase{
 		else
 			DataUtils.reportDataSetResult(xls, "TestCase", DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Fail");
 		isTestPass = false;
+		rep.endTest(test);
+		rep.flush();
 	}
 
 	@DataProvider

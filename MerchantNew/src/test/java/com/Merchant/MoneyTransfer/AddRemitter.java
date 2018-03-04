@@ -34,9 +34,9 @@ public class AddRemitter extends AppBase{
 	private AddRemitter(){
 		try {
 			prop = new Properties();
-			FileInputStream fs = new FileInputStream(Constants.Properties_file_path); //Object repository path
+			FileInputStream fs = new FileInputStream(Constants.ReProperties_file_path); //Object repository path
 			prop.load(fs);
-			xls = new Excel_Reader(Constants.RetailerLogin); // Loading the Excel Sheet 
+			xls = new Excel_Reader(Constants.Remit); // Loading the Excel Sheet 
 			rep = ExtentManager.getInstance(); // Getting the Extent Report Instance 
 			test  = rep.startTest(this.getClass().getSimpleName()); //Starting the Extent Report test
 		} catch (Exception e) {
@@ -53,27 +53,41 @@ public class AddRemitter extends AppBase{
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
 			skip = true;
 			msg= "Skipping the test as runmode is N";
+			rep.endTest(test);
+			rep.flush();
 			throw new SkipException("Skipping test case" + this.getClass().getSimpleName() + " as runmode set to NO in excel");
 		}
 	}
 
 	@Test(dataProvider="getData")
-	public void GasRecharge(Hashtable<String,String> data){
+	public void AddRemiter(Hashtable<String,String> data){
 		count++;
 		try {
+			if (data.get("Runmode").equalsIgnoreCase("N")){
+				test.log(LogStatus.SKIP, "Skipping the test as this set of data is set to N");
+				skip = true;
+				rep.endTest(test);
+				rep.flush();
+				throw new SkipException("Skipping the test as this set of data is set to N");
+			}
 			this.driver = new RetailerLogin().getLogin(data);
+			Util = new Utility(test, driver);
 			Thread.sleep(3000);
-			Util = new Utility(this.test, this.driver);
-			Util.takeScreenShot("Successfully Logged in");
-			test.log(LogStatus.PASS, "Successfully logged in the System");
 			driver.findElement(By.xpath(prop.getProperty("DMTIcon"))).click(); test.log(LogStatus.INFO, "Clicking on DMT icon");
 			driver.findElement(By.xpath(prop.getProperty("Search/AddBtn"))).sendKeys(data.get("Search"));test.log(LogStatus.INFO, "Enter Search Number");
-			Thread.sleep(5000);
-			driver.findElement(By.id(prop.getProperty("SelectBen"))).click(); test.log(LogStatus.INFO, "Clicking on Ben icon");Thread.sleep(3000);
+			Thread.sleep(10000);
+			driver.findElement(By.xpath(prop.getProperty("AddremBtn"))).click(); test.log(LogStatus.INFO, "Clttonicking on Add bu");
+			driver.findElement(By.id(prop.getProperty("RemiterName"))).sendKeys(data.get("Name")); test.log(LogStatus.INFO, "Entering the remitter name");
+			driver.findElement(By.xpath(prop.getProperty("remitaddbtn"))).click(); test.log(LogStatus.INFO, "Clicking on Proceed button");
+			driver.findElement(By.xpath(prop.getProperty("otpteet"))).sendKeys(data.get("Otp")); test.log(LogStatus.INFO, "Entring the OTP");
+			driver.findElement(By.xpath(prop.getProperty("addstm"))).click(); test.log(LogStatus.INFO, "Submitting the OTP");
+			Util.takeScreenShot("Successfully entered the OTP");
 		} catch (InterruptedException e){
 			// TODO Auto-generated catch block
-			test.log(LogStatus.ERROR, "Issue while doing a Gas Recharge");
-			msg="Issue while adding remitter"; 
+			test.log(LogStatus.ERROR, "Error while adding A Remitter");
+			msg="Error while adding A Remitter"; 
+			Util.takeScreenShot(msg);
+			fail = true;
 			e.printStackTrace();
 		}
 	}
@@ -95,7 +109,7 @@ public class AddRemitter extends AppBase{
 	}
 
 	@AfterTest
-	public void reportTestResult(){
+	public void reportTestResult() throws InterruptedException{
 		if(skip)
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
 		if(isTestPass)
@@ -103,6 +117,8 @@ public class AddRemitter extends AppBase{
 		else
 			DataUtils.reportDataSetResult(xls, "TestCase", DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Fail");
 		isTestPass = false;
+		rep.endTest(test);
+		closure();
 	}
 
 	@DataProvider

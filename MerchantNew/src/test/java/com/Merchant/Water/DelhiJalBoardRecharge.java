@@ -54,6 +54,8 @@ public class DelhiJalBoardRecharge extends AppBase{
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
 			skip = true;
 			msg= "Skipping the test as runmode is N";
+			rep.endTest(test);
+			rep.flush();
 			throw new SkipException("Skipping test case" + this.getClass().getSimpleName() + " as runmode set to NO in excel");
 		}
 	}
@@ -62,6 +64,13 @@ public class DelhiJalBoardRecharge extends AppBase{
 	public void WaterRecharge(Hashtable<String,String> data){
 		count++;
 		try {
+			if (data.get("Runmode").equalsIgnoreCase("N")){
+				test.log(LogStatus.SKIP, "Skipping the test as this set of data is set to N");
+				skip = true;
+				rep.endTest(test);
+				rep.flush();
+				throw new SkipException("Skipping the test as this set of data is set to N");
+			}
 			new RetailerLogin().getLogin(data);
 			Thread.sleep(3000);
 			driver.findElement(By.xpath(prop.getProperty("waterIcon"))).click(); test.log(LogStatus.INFO, "Clicking on Water icon");
@@ -111,6 +120,8 @@ public class DelhiJalBoardRecharge extends AppBase{
 		else
 			DataUtils.reportDataSetResult(xls, "TestCase", DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Fail");
 		isTestPass = false;
+		rep.endTest(test);
+		rep.flush();
 	}
 
 	@DataProvider

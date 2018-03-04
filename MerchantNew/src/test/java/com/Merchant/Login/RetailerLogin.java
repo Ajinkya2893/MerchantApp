@@ -20,6 +20,7 @@ import Utility.DataUtils;
 import Utility.Excel_Reader;
 import Utility.ExtentManager;
 import Utility.Utility;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 
 public class RetailerLogin extends AppBase{
@@ -64,6 +65,8 @@ public class RetailerLogin extends AppBase{
 			if (data.get("Runmode").equalsIgnoreCase("N")){
 				test.log(LogStatus.SKIP, "Skipping the test as runmode is N");
 				skip = true;
+				rep.endTest(test);
+				rep.flush();
 				throw new SkipException("Skipping the test as runmode is N");
 			}
 			LaunchApp();
@@ -76,9 +79,12 @@ public class RetailerLogin extends AppBase{
 			driver.hideKeyboard();
 			Thread.sleep(1000);
 			driver.findElement(By.id(prop.getProperty("LoginSubmit"))).click(); test.log(LogStatus.PASS, "Clicking On Submit Button");
+			Thread.sleep(5000);
+			new TouchAction(driver).tap(1000, 450).perform().release();
+			Util = new Utility(test, driver);Util.takeScreenShot("After login try");
 			if(driver.findElement(By.id("com.mindsarray.pay1:id/addBalanceIcon")).isDisplayed()) { fail =false ;
 			test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";}
-			else {fail= false; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";}
+			else {fail= true; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -86,9 +92,7 @@ public class RetailerLogin extends AppBase{
 			test.log(LogStatus.ERROR, "Unable to Access Login Page and Get Login");
 			fail = true;
 			msg ="Unable to Access Login Page and Get Login";
-			new SkipException(msg);
 		}
-		rep.endTest(test);
 		return driver;
 	} 
 
@@ -117,8 +121,9 @@ public class RetailerLogin extends AppBase{
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Pass");
 		else
 			DataUtils.reportDataSetResult(xls, "TestCase", DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Fail");
-		rep.flush();
 		isTestPass = false;
+		rep.endTest(test);
+		rep.flush();
 	}
 
 	@DataProvider

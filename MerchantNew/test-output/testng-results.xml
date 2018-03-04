@@ -2,34 +2,68 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="285747" started-at="2018-03-01T13:56:08Z" finished-at="2018-03-01T14:00:54Z">
+  <suite name="Default suite" duration-ms="260667" started-at="2018-03-04T15:05:54Z" finished-at="2018-03-04T15:10:15Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="285747" started-at="2018-03-01T13:56:08Z" finished-at="2018-03-01T14:00:54Z">
+    <test name="Default test" duration-ms="260667" started-at="2018-03-04T15:05:54Z" finished-at="2018-03-04T15:10:15Z">
       <class name="com.Merchant.MoneyTransfer.AddBeneficiary">
-        <test-method status="PASS" signature="Testskip()[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@22ffa91a]" name="Testskip" is-config="true" duration-ms="30" started-at="2018-03-01T13:56:08Z" finished-at="2018-03-01T13:56:08Z">
+        <test-method status="PASS" signature="Testskip()[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@66746f57]" name="Testskip" is-config="true" duration-ms="14617" started-at="2018-03-04T15:05:54Z" finished-at="2018-03-04T15:06:09Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Testskip -->
-        <test-method status="PASS" signature="GasRecharge(java.util.Hashtable)[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@22ffa91a]" name="GasRecharge" duration-ms="285313" started-at="2018-03-01T13:56:08Z" data-provider="getData" finished-at="2018-03-01T14:00:54Z">
+        <test-method status="PASS" signature="Addbeneficary(java.util.Hashtable)[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@66746f57]" name="Addbeneficary" duration-ms="195208" started-at="2018-03-04T15:06:09Z" data-provider="getData" finished-at="2018-03-04T15:09:24Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[{Account No=195905000005, Actual Result=, Username=9819042543, Result=, Search=9967903705, Runmode=Y, Bank Name=icici, BenNumber=9322304397, Error=, Amount=100, Password=yn7Fa4}]]>
+                <![CDATA[{Account No=195905000005, Actual Result=, Username=9819042543, Result=, Search=9967903705, Runmode=Y, Bank Name=icici, BenNumber=9322304397, Error=, Password=yn7Fa4}]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- GasRecharge -->
-        <test-method status="PASS" signature="reporter()[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@22ffa91a]" name="reporter" is-config="true" duration-ms="255" started-at="2018-03-01T14:00:54Z" finished-at="2018-03-01T14:00:54Z">
+        </test-method> <!-- Addbeneficary -->
+        <test-method status="PASS" signature="reporter()[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@66746f57]" name="reporter" is-config="true" duration-ms="38770" started-at="2018-03-04T15:09:24Z" finished-at="2018-03-04T15:10:03Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- reporter -->
-        <test-method status="PASS" signature="reportTestResult()[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@22ffa91a]" name="reportTestResult" is-config="true" duration-ms="101" started-at="2018-03-01T14:00:54Z" finished-at="2018-03-01T14:00:54Z">
+        <test-method status="PASS" signature="reportTestResult()[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@66746f57]" name="reportTestResult" is-config="true" duration-ms="12006" started-at="2018-03-04T15:10:03Z" finished-at="2018-03-04T15:10:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- reportTestResult -->
+        <test-method status="SKIP" signature="closure()[pri:0, instance:com.Merchant.MoneyTransfer.AddBeneficiary@66746f57]" name="closure" is-config="true" duration-ms="1" started-at="2018-03-04T15:10:15Z" finished-at="2018-03-04T15:10:15Z">
+          <exception class="org.testng.SkipException">
+            <message>
+              <![CDATA[Unable to end the test under exigustion]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.testng.SkipException: Unable to end the test under exigustion
+at com.BaseClass.AppBase.closure(AppBase.java:130)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.lang.reflect.Method.invoke(Method.java:498)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:59)
+at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:455)
+at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:222)
+at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:142)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:425)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.testng.SkipException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closure -->
       </class> <!-- com.Merchant.MoneyTransfer.AddBeneficiary -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [TS_Utility]">
+  <test thread-count="5" name="Electricity Recharge(failed)">
+    <classes>
+      <class name="com.Merchant.Electricity.RelianceElectricity">
+        <methods>
+          <include name="reporter"/>
+          <include name="Testskip"/>
+          <include name="reportTestResult"/>
+          <include name="closure"/>
+          <include name="ElectricityRecharge" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.Merchant.Electricity.RelianceElectricity -->
+    </classes>
+  </test> <!-- Electricity Recharge(failed) -->
+  <test thread-count="5" name="Water Recharge(failed)">
+    <classes>
+      <class name="com.Merchant.Water.DelhiJalBoardRecharge">
+        <methods>
+          <include name="reportTestResult"/>
+          <include name="closure"/>
+          <include name="Testskip"/>
+          <include name="reporter"/>
+          <include name="WaterRecharge" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.Merchant.Water.DelhiJalBoardRecharge -->
+    </classes>
+  </test> <!-- Water Recharge(failed) -->
+  <test thread-count="5" name="Gas Recharge(failed)">
+    <classes>
+      <class name="com.Merchant.Gas.MahanagarGasRecharge">
+        <methods>
+          <include name="reporter"/>
+          <include name="Testskip"/>
+          <include name="reportTestResult"/>
+          <include name="closure"/>
+          <include name="GasRecharge" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.Merchant.Gas.MahanagarGasRecharge -->
+    </classes>
+  </test> <!-- Gas Recharge(failed) -->
+  <test thread-count="5" name="LandLine Recharge(failed)">
+    <classes>
+      <class name="com.Merchant.BillPayment.BsnlRecharge">
+        <methods>
+          <include name="Testskip"/>
+          <include name="LandlineRecharge" invocation-numbers="0"/>
+          <include name="reportTestResult"/>
+          <include name="reporter"/>
+          <include name="closure"/>
+        </methods>
+      </class> <!-- com.Merchant.BillPayment.BsnlRecharge -->
+    </classes>
+  </test> <!-- LandLine Recharge(failed) -->
+</suite> <!-- Failed suite [TS_Utility] -->

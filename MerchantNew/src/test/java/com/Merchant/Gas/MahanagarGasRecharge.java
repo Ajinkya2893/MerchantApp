@@ -53,6 +53,8 @@ public class MahanagarGasRecharge extends AppBase {
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
 			skip = true;
 			msg= "Skipping the test as runmode is N";
+			rep.endTest(test);
+			rep.flush();
 			throw new SkipException("Skipping test case" + this.getClass().getSimpleName() + " as runmode set to NO in excel");
 		}
 	}
@@ -61,11 +63,15 @@ public class MahanagarGasRecharge extends AppBase {
 	public void GasRecharge(Hashtable<String,String> data){
 		count++;
 		try {
+			if (data.get("Runmode").equalsIgnoreCase("N")){
+				test.log(LogStatus.SKIP, "Skipping the test as this set of data is set to N");
+				skip = true;
+				rep.endTest(test);
+				rep.flush();
+				throw new SkipException("Skipping the test as this set of data is set to N");
+			}
 			this.driver = new RetailerLogin().getLogin(data);
-			Thread.sleep(3000);
 			Util = new Utility(this.test, this.driver);
-			Util.takeScreenShot("Successfully Logged in");
-			test.log(LogStatus.PASS, "Successfully logged in the System");
 			driver.findElement(By.xpath(prop.getProperty("gasIcon"))).click(); test.log(LogStatus.INFO, "Clicking on DTH icon");
 			driver.findElement(By.xpath(prop.getProperty("gasProduct"))).click();test.log(LogStatus.INFO, "Selecting the DTH Product");//AirtelDth change any service provider needed
 			Thread.sleep(1000);
@@ -115,6 +121,8 @@ public class MahanagarGasRecharge extends AppBase {
 		else
 			DataUtils.reportDataSetResult(xls, "TestCase", DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Fail");
 		isTestPass = false;
+		rep.endTest(test);
+		rep.flush();
 	}
 
 	@DataProvider

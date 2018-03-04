@@ -53,6 +53,8 @@ public class DthRecharge extends AppBase{
 			test.log(LogStatus.SKIP, "Skipping the test as runmode is N");
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
 			skip = true;
+			rep.endTest(test);
+			rep.flush();
 			throw new SkipException("Skipping test case" + this.getClass().getSimpleName() + " as runmode set to NO in excel");
 		}
 	}
@@ -61,11 +63,16 @@ public class DthRecharge extends AppBase{
 	public void mobileRecharge(Hashtable<String,String> data){
 		count++;
 		try {
+			if (data.get("Runmode").equalsIgnoreCase("N")){
+				test.log(LogStatus.SKIP, "Skipping the test as this set of data is set to N");
+				skip = true;
+				rep.endTest(test);
+				rep.flush();
+				throw new SkipException("Skipping the test as this set of data is set to N");
+			}
 			this.driver = new RetailerLogin().getLogin(data);
 			Thread.sleep(3000);
 			Util = new Utility(this.test, this.driver);
-			Util.takeScreenShot("Successfully Logged in");
-			test.log(LogStatus.PASS, "Successfully logged in the System");
 			driver.findElement(By.xpath(prop.getProperty("dthIcon"))).click();test.log(LogStatus.INFO, "Clicking on DTHIcon");
 			driver.findElement(By.xpath(prop.getProperty("dthproduct"))).click();test.log(LogStatus.INFO, "Selecting the Product");//Idea change any service provider needed
 			Thread.sleep(1000);
@@ -114,8 +121,10 @@ public class DthRecharge extends AppBase{
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Pass");
 		else
 			DataUtils.reportDataSetResult(xls, "TestCase", DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Fail");
+		rep.endTest(test);
 		rep.flush();
-		isTestPass = false;}
+		isTestPass = false;
+	}
 
 	@DataProvider
 	public Object[][] getData(){

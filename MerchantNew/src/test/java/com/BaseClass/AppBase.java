@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.SkipException;
+import org.testng.annotations.AfterSuite;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -29,7 +31,7 @@ public class AppBase {
 	@SuppressWarnings("rawtypes")
 	public AndroidDriver driver;
 	public static Utility Util;
-
+	public boolean testend = true;
 
 	public void initialize(Excel_Reader xls, String testName) {
 		if(!isinitialized) {
@@ -88,7 +90,7 @@ public class AppBase {
 			Thread.sleep(2000);
 			for (int i=0 ; i<3; i++) new TouchAction(driver).longPress(1000, 450).moveTo(120, 450).release().perform();
 			test.log(LogStatus.INFO, "Going through the intro Screen");Thread.sleep(2000);
-			new TouchAction(driver).tap(1000, 450).perform().release();}
+			new TouchAction(driver).longPress(1000, 450).moveTo(700, 450).perform().release();}
 		catch (Exception e) {
 			System.out.println("Unable to Swipe through the Screens");
 			test.log(LogStatus.ERROR, "Unable to Swipe through the Screens");
@@ -114,6 +116,19 @@ public class AppBase {
 		}
 	}
 
-
+	@AfterSuite
+	public void closure() throws InterruptedException{
+		if(testend) {
+			Thread.sleep(4000);
+			driver.quit();
+			rep.flush();
+			//rep.close();
+			testend =false;
+		}else {
+			testend= true;
+			System.out.println("Unable to end the test under exigustion");
+			throw new SkipException("Unable to end the test under exigustion");
+		}
+	}
 
 }

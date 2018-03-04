@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [TS_Remit]">
+  <test thread-count="5" name="Adding Beneficiary(failed)">
+    <classes>
+      <class name="com.Merchant.MoneyTransfer.AddBeneficiary">
+        <methods>
+          <include name="reportTestResult"/>
+          <include name="Testskip"/>
+          <include name="closure"/>
+          <include name="GasRecharge" invocation-numbers="0"/>
+          <include name="reporter"/>
+        </methods>
+      </class> <!-- com.Merchant.MoneyTransfer.AddBeneficiary -->
+    </classes>
+  </test> <!-- Adding Beneficiary(failed) -->
+</suite> <!-- Failed suite [TS_Remit] -->

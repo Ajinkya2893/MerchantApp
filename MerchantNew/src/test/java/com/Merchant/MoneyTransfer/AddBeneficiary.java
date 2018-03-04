@@ -30,15 +30,17 @@ public class AddBeneficiary extends AppBase {
 	static boolean fail=true;
 	static boolean isTestPass=false;
 	public String msg = "";
+	public String testName;
 
 	private AddBeneficiary(){
 		try {
+			testName = this.getClass().getSimpleName();
 			prop = new Properties();
 			FileInputStream fs = new FileInputStream(Constants.ReProperties_file_path); //Object repository path
 			prop.load(fs);
 			xls = new Excel_Reader(Constants.Remit); // Loading the Excel Sheet 
 			rep = ExtentManager.getInstance(); // Getting the Extent Report Instance 
-			test  = rep.startTest(this.getClass().getSimpleName()); //Starting the Extent Report test
+			test  = rep.startTest(testName); //Starting the Extent Report test
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,24 +50,31 @@ public class AddBeneficiary extends AppBase {
 
 	@BeforeTest()
 	public void Testskip(){
-		if (DataUtils.isSkip(xls, this.getClass().getSimpleName())){
+		if (DataUtils.isSkip(xls, testName)){
 			test.log(LogStatus.SKIP, "Skipping the test as runmode is N");
-			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
+			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,testName), "Skip");
 			skip = true;
 			msg= "Skipping the test as runmode is N";
-			throw new SkipException("Skipping test case" + this.getClass().getSimpleName() + " as runmode set to NO in excel");
+			rep.endTest(test);
+			rep.flush();
+			throw new SkipException("Skipping test case " + testName + " as runmode set to NO in excel");
 		}
 	}
 
 	@Test(dataProvider="getData")
-	public void GasRecharge(Hashtable<String,String> data){
+	public void Addbeneficary(Hashtable<String,String> data){
 		count++;
 		try {
+			if (data.get("Runmode").equalsIgnoreCase("N")){
+				test.log(LogStatus.SKIP, "Skipping the test as this set of data is set to N");
+				skip = true;
+				rep.endTest(test);
+				rep.flush();
+				throw new SkipException("Skipping the test as this set of data is set to N");
+			}
 			this.driver = new RetailerLogin().getLogin(data);
+			Util = new Utility(test, driver);
 			Thread.sleep(3000);
-			Util = new Utility(this.test, this.driver);
-			Util.takeScreenShot("Successfully Logged in");
-			test.log(LogStatus.PASS, "Successfully logged in the System");
 			driver.findElement(By.xpath(prop.getProperty("DMTIcon"))).click(); test.log(LogStatus.INFO, "Clicking on DMT icon");
 			driver.findElement(By.xpath(prop.getProperty("Search/AddBtn"))).sendKeys(data.get("Search"));test.log(LogStatus.INFO, "Enter Search Number");
 			driver.findElement(By.xpath(prop.getProperty("AddBenBtn"))).click();test.log(LogStatus.INFO, "Clicking on Add Beneficiary button");
@@ -74,10 +83,12 @@ public class AddBeneficiary extends AppBase {
 			driver.findElement(By.id("com.mindsarray.pay1:id/input_layout_mobile")).click();
 			driver.findElement(By.xpath(prop.getProperty("BenMobile"))).sendKeys(data.get("BenNumber"));test.log(LogStatus.INFO, "Enter Mobile No.");
 			driver.findElement(By.xpath(prop.getProperty("ProceedBtn"))).click();test.log(LogStatus.INFO, "Clicking on Add Beneficiary button");
-			Util.takeScreenShot("Entered details");		
+			Util.takeScreenShot("Entered details");	
+			fail = false; msg ="Successfully added the remitter";
 		} catch (InterruptedException e){
 			// TODO Auto-generated catch block
 			test.log(LogStatus.ERROR, "Issue while Adding beneficiary");
+			fail = true;
 			msg="Issue while Adding beneficiary";
 			e.printStackTrace();
 		}
@@ -86,32 +97,34 @@ public class AddBeneficiary extends AppBase {
 	@AfterMethod
 	public void reporter(){
 		if(fail){
-			DataUtils.reportDataSetResult(xls, this.getClass().getSimpleName(), count+2, "Fail");
-			DataUtils.reportDataSetActualResult(xls, this.getClass().getSimpleName(),count+2, msg);
+			DataUtils.reportDataSetResult(xls, testName, count+2, "Fail");
+			DataUtils.reportDataSetActualResult(xls, testName,count+2, msg);
 		}else{
 			isTestPass=true;
-			DataUtils.reportDataSetResult(xls, this.getClass().getSimpleName(), count+2, "Pass");
-			DataUtils.reportDataSetActualResult(xls, this.getClass().getSimpleName(),count+2, msg);
+			DataUtils.reportDataSetResult(xls, testName, count+2, "Pass");
+			DataUtils.reportDataSetActualResult(xls, testName,count+2, msg);
 		}
 		if(skip)
-			DataUtils.reportDataSetResult(xls, this.getClass().getSimpleName(), count+2, "Skip");
+			DataUtils.reportDataSetResult(xls, testName, count+2, "Skip");
 		skip=false;
 		fail=true;
 	}
 
 	@AfterTest
-	public void reportTestResult(){
+	public void reportTestResult() throws InterruptedException{
 		if(skip)
-			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
+			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,testName), "Skip");
 		if(isTestPass)
-			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Pass");
+			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,testName), "Pass");
 		else
-			DataUtils.reportDataSetResult(xls, "TestCase", DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Fail");
+			DataUtils.reportDataSetResult(xls, "TestCase", DataUtils.getRowNum(xls,testName), "Fail");
 		isTestPass = false;
+		rep.endTest(test);
+		closure();
 	}
 
 	@DataProvider
 	public Object[][] getData(){
-		return DataUtils.getData(xls, this.getClass().getSimpleName(),this.getClass().getSimpleName());
+		return DataUtils.getData(xls, testName,testName);
 	}
 }
