@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.SkipException;
-import org.testng.annotations.AfterSuite;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -116,7 +115,7 @@ public class AppBase {
 		}
 	}
 
-	@AfterSuite
+	//@AfterSuite
 	public void closure() throws InterruptedException{
 		if(testend) {
 			Thread.sleep(4000);

@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import org.openqa.selenium.By;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -12,13 +13,13 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.BaseClass.AppBase;
-import com.Merchant.Login.RetailerLogin;
 import com.relevantcodes.extentreports.LogStatus;
 
 import Utility.Constants;
 import Utility.DataUtils;
 import Utility.Excel_Reader;
 import Utility.ExtentManager;
+import Utility.Utility;
 
 public class AddRetailer extends AppBase{
 	static int count=-1;
@@ -67,13 +68,33 @@ public class AddRetailer extends AppBase{
 				rep.flush();
 				throw new SkipException("Skipping the test as this set of data is set to N");
 			}
-			this.driver = new RetailerLogin().getLogin(data);
-			
+			Util = new Utility(test, driver);
+			LaunchApp();
+			SwipeScreens();
+			navigateToLogin();
+			driver.findElement(By.xpath(prop.getProperty("createAccount"))).click(); test.log(LogStatus.INFO, "Clicking on Create Account Button");
+			driver.findElement(By.xpath(prop.getProperty("crtRetailer"))).click(); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("retailername"))).sendKeys(data.get("Name")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("retailermobile"))).sendKeys(data.get("Mobile")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("retailerEmail"))).sendKeys(data.get("Email")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("retailerShopName"))).sendKeys(data.get("ShopName")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("retailerPincode"))).sendKeys(data.get("Pincode")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.hideKeyboard();
+			driver.findElement(By.id(prop.getProperty("confirmBtn"))).click(); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("enterOTp"))).sendKeys(data.get("Otp")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("newPwd"))).sendKeys(data.get("NewPwd")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("conpwd"))).sendKeys(data.get("NewPwd")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("ContinueBtn"))).click(); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			msg = "Successfully entered the Details for Retailer";
+			Util.takeScreenShot(msg);
+			Thread.sleep(3000);
+			test.log(LogStatus.PASS, msg); fail = false;
 		} catch (InterruptedException e){
 			// TODO Auto-generated catch block
 			test.log(LogStatus.ERROR, "Issue while creating a Retailer");
 			msg="Issue while adding remitter"; 
 			Util.takeScreenShot(msg);
+			fail = true;
 			e.printStackTrace();
 		}
 	}

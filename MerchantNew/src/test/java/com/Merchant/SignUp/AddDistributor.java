@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import org.openqa.selenium.By;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -19,6 +20,7 @@ import Utility.Constants;
 import Utility.DataUtils;
 import Utility.Excel_Reader;
 import Utility.ExtentManager;
+import Utility.Utility;
 
 public class AddDistributor extends AppBase{
 	static int count=-1;
@@ -68,8 +70,24 @@ public class AddDistributor extends AppBase{
 				throw new SkipException("Skipping the test as this set of data is set to N");
 			}
 			this.driver = new RetailerLogin().getLogin(data);
+			Util = new Utility(test, driver);
 			Thread.sleep(3000);
-
+			LaunchApp();
+			SwipeScreens();
+			navigateToLogin();
+			Thread.sleep(3000);
+			driver.findElement(By.xpath(prop.getProperty("createAccount"))).click(); test.log(LogStatus.INFO, "Clicking on Create Account Button");
+			driver.findElement(By.xpath(prop.getProperty("crtDistributor"))).click(); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("distributorName"))).sendKeys(data.get("")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("distMobileNum"))).sendKeys(data.get("")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("distEmail"))).sendKeys(data.get("")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.id(prop.getProperty("distFirmName"))).sendKeys(data.get("")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");
+			driver.findElement(By.xpath("//android.widget.TextView[@text='Select Current Business']")).click();
+			driver.findElement(By.xpath("//android.widget.TextView[@text='Mobile/Mobile Accessories']")).click();
+			driver.findElement(By.id(prop.getProperty("distPincode"))).sendKeys(data.get("")); test.log(LogStatus.INFO, "Clicking on Retailer SignUp Button");	
+			driver.findElement(By.xpath(prop.getProperty("confirmBtn"))).click();
+			driver.findElement(By.xpath(prop.getProperty("enterOTp"))).sendKeys(data.get(""));
+			driver.findElement(By.xpath(prop.getProperty("ContinueBtn"))).click();
 		} catch (InterruptedException e){
 			// TODO Auto-generated catch block
 			test.log(LogStatus.ERROR, "Issue while creating a distributor");

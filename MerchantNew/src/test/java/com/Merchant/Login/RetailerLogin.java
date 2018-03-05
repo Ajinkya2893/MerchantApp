@@ -57,8 +57,17 @@ public class RetailerLogin extends AppBase{
 		} 
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Test(dataProvider="getData")
+	public void log(Hashtable<String,String> data) {
+		try {
+			this.driver = getLogin(data);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
 	public AndroidDriver getLogin(Hashtable<String,String> data) throws InterruptedException {
 		count++;
 		try{
