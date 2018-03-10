@@ -3,15 +3,14 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.Merchant.MoneyTransfer.AddBeneficiary">
+      <class name="com.Merchant.Login.RetailerLogin">
         <methods>
-          <include name="reportTestResult"/>
           <include name="Testskip"/>
-          <include name="closure"/>
-          <include name="GasRecharge" invocation-numbers="0"/>
+          <include name="log" invocation-numbers="0"/>
           <include name="reporter"/>
+          <include name="reportTestResult"/>
         </methods>
-      </class> <!-- com.Merchant.MoneyTransfer.AddBeneficiary -->
+      </class> <!-- com.Merchant.Login.RetailerLogin -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -121,7 +121,7 @@ public class AppBase {
 			Thread.sleep(4000);
 			driver.quit();
 			rep.flush();
-			//rep.close();
+			rep.close();
 			testend =false;
 		}else {
 			testend= true;

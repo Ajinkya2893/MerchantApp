@@ -19,8 +19,8 @@ import org.testng.Assert;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class Utility {//extends BaseTest{
-
+public class Utility {
+	
 	public static WebDriver driver;
 	public Properties prop;
 	protected ExtentTest test;
