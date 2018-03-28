@@ -20,7 +20,6 @@ import Utility.DataUtils;
 import Utility.Excel_Reader;
 import Utility.ExtentManager;
 import Utility.Utility;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 
 public class RetailerLogin extends AppBase{
@@ -88,12 +87,15 @@ public class RetailerLogin extends AppBase{
 			driver.hideKeyboard();
 			Thread.sleep(1000);
 			driver.findElement(By.id(prop.getProperty("LoginSubmit"))).click(); test.log(LogStatus.PASS, "Clicking On Submit Button");
-			Thread.sleep(5000);
-			new TouchAction(driver).tap(1000, 450).perform().release();
+			if(new Utility(test, driver).isElementPresent("OK_xpath"))
+				driver.findElement(By.xpath(prop.getProperty("OK_xpath"))).click();
 			Util = new Utility(test, driver);Util.takeScreenShot("After login try");
-			if(driver.findElement(By.id("com.mindsarray.pay1:id/addBalanceIcon")).isDisplayed()) { fail =false ;
-			test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";}
-			else {fail= true; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";}
+			if(driver.findElement(By.id("com.mindsarray.pay1:id/addBalanceIcon")).isDisplayed()) { 
+				fail =false ;
+				test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";
+			}else {
+				fail= true; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();

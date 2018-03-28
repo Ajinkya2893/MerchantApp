@@ -70,12 +70,13 @@ public class BsnlRecharge extends AppBase{
 				rep.flush();
 				throw new SkipException("Skipping the test as this set of data is set to N");
 			}
-			new RetailerLogin().getLogin(data);
+			this.driver = new RetailerLogin().getLogin(data);
 			Thread.sleep(3000);
-			driver.findElement(By.xpath(prop.getProperty("billIcon"))).click(); test.log(LogStatus.INFO, "Clicking on Water icon");
+			Util = new Utility(this.test, this.driver);
+			driver.findElement(By.xpath(prop.getProperty("billIcon"))).click(); test.log(LogStatus.INFO, "Clicking on BSnl icon");
 			driver.findElement(By.xpath(prop.getProperty("billproduct"))).click();test.log(LogStatus.INFO, "Selecting the Water Product");//Mahanagar gas change any service provider needed
 			Thread.sleep(1000);
-			driver.findElement(By.id(prop.getProperty("mobilenumber"))).sendKeys("Mobile Number");test.log(LogStatus.INFO, "Entering the Mobile Number");
+			driver.findElement(By.id(prop.getProperty("mobilenumber"))).sendKeys(data.get("Mobile Number"));test.log(LogStatus.INFO, "Entering the Mobile Number");
 			driver.findElement(By.id(prop.getProperty("billaccno"))).sendKeys(data.get("KA Number"));test.log(LogStatus.INFO, "Entering the Account Number");
 			driver.findElement(By.id(prop.getProperty("billtelno"))).sendKeys(data.get("KA Number"));test.log(LogStatus.INFO, "Entering the Telephone Number");
 			Thread.sleep(1000);

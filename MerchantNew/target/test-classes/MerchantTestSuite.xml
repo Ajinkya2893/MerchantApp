@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Merchant">
+
+	<suite-files>
+
+		<suite-file path="src/test/resources/MobileRecharge.xml"/>
+		<suite-file path="src/test/resources/UtilityRecharge.xml"/>
+		<suite-file path="src/test/resources/Remit.xml" />
+		
+	</suite-files>
+	
+</suite>

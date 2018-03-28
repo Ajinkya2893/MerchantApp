@@ -1,24 +1,34 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS_Remit" parallel="false">
 
-
 	<test name="Adding Beneficiary">
 		<classes>
 			<class name="com.Merchant.MoneyTransfer.AddBeneficiary"></class>
 		</classes>
 	</test>
 
-	<!-- <test name="Adding Remitter"> <classes> <class name="com.Merchant.MoneyTransfer.AddRemitter"></class> 
-		</classes> </test> -->
+	<test name="Adding Remitter">
+		<classes>
+			<class name="com.Merchant.MoneyTransfer.AddRemitter"></class>
+		</classes>
+	</test>
+
+	<test name="Transfering Money">
+		<classes>
+			<class name="com.Merchant.MoneyTransfer.TransferMoney"></class>
+		</classes>
+	</test>
+	
+	<test name="Validating Transaction">
+		<classes>
+			<class name="com.Merchant.MoneyTransfer.ValidateTransaction"></class>
+		</classes>
+	</test>
 
 	<test name="Delete Remitter">
 		<classes>
 			<class name="com.Merchant.MoneyTransfer.DeleteRemitter"></class>
 		</classes>
 	</test>
-
-	<!-- <test name="Transfering Money"> <classes> <class name="com.Merchant.MoneyTransfer.TransferMoney"></class> 
-		</classes> </test> <test name="Validating Transaction"> <classes> <class 
-		name="com.Merchant.MoneyTransfer.ValidateTransaction"></class> </classes> 
-		</test> -->
+	
 </suite>

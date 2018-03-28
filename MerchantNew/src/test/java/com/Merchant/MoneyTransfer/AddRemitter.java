@@ -78,6 +78,7 @@ public class AddRemitter extends AppBase{
 			Thread.sleep(10000);
 			driver.findElement(By.xpath(prop.getProperty("AddremBtn"))).click(); test.log(LogStatus.INFO, "Clttonicking on Add bu");
 			driver.findElement(By.id(prop.getProperty("RemiterName"))).sendKeys(data.get("Name")); test.log(LogStatus.INFO, "Entering the remitter name");
+			driver.hideKeyboard();
 			driver.findElement(By.xpath(prop.getProperty("remitaddbtn"))).click(); test.log(LogStatus.INFO, "Clicking on Proceed button");
 			driver.findElement(By.xpath(prop.getProperty("otpteet"))).sendKeys(data.get("Otp")); test.log(LogStatus.INFO, "Entring the OTP");
 			driver.findElement(By.xpath(prop.getProperty("addstm"))).click(); test.log(LogStatus.INFO, "Submitting the OTP");

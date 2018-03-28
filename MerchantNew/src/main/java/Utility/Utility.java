@@ -130,6 +130,8 @@ public class Utility {//extends BaseTest{
 			}
 			else if(locatorKey.endsWith("_name"))
 				e = driver.findElements(By.name(prop.getProperty(locatorKey)));
+			else if(locatorKey.endsWith("_className"))
+				e = driver.findElements(By.className(prop.getProperty(locatorKey)));
 
 			if(e.size()==0){
 				//System.out.println("Element not found");

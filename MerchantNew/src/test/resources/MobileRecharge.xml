@@ -7,10 +7,15 @@
 		</classes>
 	</test>
 
-
 	<test name="Post Paid Recharge">
 		<classes>
 			<class name="com.Merchant.Recharge.PostpaidRecharge"></class>
+		</classes>
+	</test>
+	
+	<test name="DthRecharge"> 
+		<classes>
+			<class name="com.Merchant.DTH.DthRecharge"></class>
 		</classes>
 	</test>
 </suite>

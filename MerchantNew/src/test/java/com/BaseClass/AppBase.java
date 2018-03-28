@@ -74,7 +74,7 @@ public class AppBase {
 			// Set appium server address and port number in URL string.
 			// It will launch calculator app in android device.
 			driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
-			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 			test.log(LogStatus.PASS, "Successfully Launched the Application");
 
 		}catch (Exception e){
@@ -86,21 +86,23 @@ public class AppBase {
 
 	public void SwipeScreens() throws InterruptedException {
 		try {
-			Thread.sleep(2000);
-			for (int i=0 ; i<3; i++) new TouchAction(driver).longPress(1000, 450).moveTo(120, 450).release().perform();
+			if(new Utility(test, driver).isElementPresent("swipe_xpath"))
+				driver.findElement(By.xpath(prop.getProperty("swipe_xpath"))).click();
+			for (int i=0 ; i<4; i++)
+				new TouchAction(driver).longPress(1000, 450).moveTo(120, 450).release().perform();
 			test.log(LogStatus.INFO, "Going through the intro Screen");Thread.sleep(2000);
-			new TouchAction(driver).longPress(1000, 450).moveTo(700, 450).perform().release();}
+		}
 		catch (Exception e) {
 			System.out.println("Unable to Swipe through the Screens");
-			test.log(LogStatus.ERROR, "Unable to Swipe through the Screens");
-			e.printStackTrace();
+			//test.log(LogStatus.ERROR, "Unable to Swipe through the Screens");
+			//e.printStackTrace();
 		}
 	}
 
 	public void navigateToLogin() throws InterruptedException {
 		try {
 			test.log(LogStatus.INFO, "Navigated to DashBoard");
-			driver.findElement(By.className(prop.getProperty("menuTab"))).click(); test.log(LogStatus.INFO, "Clicking on Menu Tab");
+			driver.findElement(By.className(prop.getProperty("menuTab_className"))).click(); test.log(LogStatus.INFO, "Clicking on Menu Tab");
 			driver.findElement(By.xpath(prop.getProperty("LoginButton"))).click(); test.log(LogStatus.INFO, "Clicking on Login Button");
 			Thread.sleep(1000);
 			driver.findElement(By.id("com.android.packageinstaller:id/permission_allow_button")).click(); 
