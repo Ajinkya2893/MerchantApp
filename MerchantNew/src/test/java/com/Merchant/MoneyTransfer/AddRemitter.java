@@ -55,7 +55,7 @@ public class AddRemitter extends AppBase{
 			msg= "Skipping the test as runmode is N";
 			rep.endTest(test);
 			rep.flush();
-			throw new SkipException("Skipping test case" + this.getClass().getSimpleName() + " as runmode set to NO in excel");
+			throw new SkipException("Skipping test case " + this.getClass().getSimpleName() + " as runmode set to NO in excel");
 		}
 	}
 

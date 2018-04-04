@@ -77,12 +77,12 @@ public class DelhiJalBoardRecharge extends AppBase{
 			driver.findElement(By.xpath(prop.getProperty("waterIcon"))).click(); test.log(LogStatus.INFO, "Clicking on Water icon");
 			driver.findElement(By.xpath(prop.getProperty("waterproduct"))).click();test.log(LogStatus.INFO, "Selecting the Water Product");//Mahanagar gas change any service provider needed
 			Thread.sleep(1000);
-			driver.findElement(By.id(prop.getProperty("mobilenumber"))).sendKeys(data.get("Mobile Number"));test.log(LogStatus.INFO, "Entering the Mobile Number");
-			driver.findElement(By.id(prop.getProperty("kNo"))).sendKeys(data.get("KA Number"));test.log(LogStatus.INFO, "Entering the KA Number");
+			driver.findElement(By.id(prop.getProperty("mobileno"))).sendKeys(data.get("Mobile Number"));test.log(LogStatus.INFO, "Entering the Mobile Number");
+			driver.findElement(By.xpath(prop.getProperty("kNo"))).sendKeys(data.get("KA Number"));test.log(LogStatus.INFO, "Entering the KA Number");
 			Thread.sleep(1000);
-			driver.findElement(By.id(prop.getProperty("fetchBill"))).click();test.log(LogStatus.INFO, "Clicking on fetchBill Button");
+			driver.findElement(By.xpath(prop.getProperty("fetchBill"))).click();test.log(LogStatus.INFO, "Clicking on fetchBill Button");
 			Thread.sleep(5000);
-			driver.findElement(By.xpath(prop.getProperty("elecpaybill")));
+			driver.findElement(By.xpath(prop.getProperty("elecpaybill"))).click();
 			Thread.sleep(2000);
 			Util.takeScreenShot("Bill fetch Successfully by BBPS");
 			driver.findElement(By.xpath("//android.widget.TextView[@text='NO']")).click();

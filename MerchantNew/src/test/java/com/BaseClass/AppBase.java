@@ -23,7 +23,7 @@ import io.appium.java_client.android.AndroidDriver;
 public class AppBase {
 
 	public static boolean isinitialized = false;
-	public static Excel_Reader xls;
+	public Excel_Reader xls;
 	public ExtentReports rep;
 	public ExtentTest test;
 	public Properties prop;
@@ -45,36 +45,17 @@ public class AppBase {
 	@SuppressWarnings("rawtypes")
 	public void LaunchApp() {
 		try {
-			// Created object of DesiredCapabilities class.
 			DesiredCapabilities capabilities = new DesiredCapabilities();
-
-			// Set android deviceName desired capability. Set your device name.
+		//	capabilities.setCapability("deviceName", "emulator-5554"); // Adb devices emultor id
 			capabilities.setCapability("deviceName", "TOQOPBH6AYBQCIP7");
-
-			// Set BROWSER_NAME desired capability. It's Android in our case here.
-			capabilities.setCapability(CapabilityType.BROWSER_NAME, "Android");
-
-			// Set android VERSION desired capability. Set your mobile device's OS version.
+			capabilities.setCapability(CapabilityType.BROWSER_NAME, "Android"); // Change to emulator
+			//capabilities.setCapability(CapabilityType.VERSION, "4.1.2");
 			capabilities.setCapability(CapabilityType.VERSION, "6.0");
-
-			// Set android platformName desired capability. It's Android in our case here.
 			capabilities.setCapability("platformName", "Android");
-
-			// Set android appPackage desired capability. It is
-			// com.android.calculator2 for calculator application.
-			// Set your application's appPackage if you are using any other app.
 			capabilities.setCapability("appPackage", "com.mindsarray.pay1");
-
-			// Set android appActivity desired capability. It is
-			// com.android.calculator2.Calculator for calculator application.
-			// Set your application's appPackage if you are using any other app.
 			capabilities.setCapability("appActivity", "com.mindsarray.pay1.ui.intro.SplashActivity");
-
-			// Created object of RemoteWebDriver will all set capabilities.
-			// Set appium server address and port number in URL string.
-			// It will launch calculator app in android device.
 			driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
-			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			test.log(LogStatus.PASS, "Successfully Launched the Application");
 
 		}catch (Exception e){
