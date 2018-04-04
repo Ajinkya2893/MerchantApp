@@ -36,7 +36,7 @@ public class ValidateTransaction extends AppBase{
 			prop = new Properties();
 			FileInputStream fs = new FileInputStream(Constants.Properties_file_path); //Object repository path
 			prop.load(fs);
-			xls = new Excel_Reader(Constants.RetailerLogin); // Loading the Excel Sheet 
+			xls = new Excel_Reader(Constants.Remit); // Loading the Excel Sheet 
 			rep = ExtentManager.getInstance(); // Getting the Extent Report Instance 
 			test  = rep.startTest(this.getClass().getSimpleName()); //Starting the Extent Report test
 		} catch (Exception e) {
@@ -53,7 +53,7 @@ public class ValidateTransaction extends AppBase{
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
 			skip = true;
 			msg= "Skipping the test as runmode is N";
-			throw new SkipException("Skipping test case" + this.getClass().getSimpleName() + " as runmode set to NO in excel");
+			throw new SkipException("Skipping test case " + this.getClass().getSimpleName() + " as runmode set to NO in excel");
 		}
 	}
 
