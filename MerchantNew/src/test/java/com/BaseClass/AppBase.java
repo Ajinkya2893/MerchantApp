@@ -116,9 +116,10 @@ public class AppBase {
 				driver.findElement(By.id(prop.getProperty("otpButton_id"))).click();
 				Util.waitfor("5000");
 				
-				if(Util.isElementPresent(""))
+				if(Util.isElementPresent("wrongpasswdbtn_id")) {
+					Util.takeScreenShot("Wrong otp entered please re try agian");
 					test.log(LogStatus.FAIL, "Otp did not matched ");
-					
+				}
 				Util.takeScreenShot("Verify the user is logged in");
 				set_Hindi_Language = getLaunguage();
 			}

@@ -101,13 +101,21 @@ public class RetailerLogin extends AppBase{
 			else if(Util.isElementPresent("otpfield_id")) {
 				otpFlag = true;
 				getOtp("123456");
-				if(Util.isElementPresent("OK_xpath"))
+				
+			}
+			else {
+				if(Util.isElementPresent("OK_xpath")) {
 					driver.findElement(By.xpath(prop.getProperty("OK_xpath"))).click();
-				Util.takeScreenShot("After login try");
-				if(driver.findElement(By.id("com.mindsarray.pay1:id/addBalanceIcon")).isDisplayed()) { 
+					Util.takeScreenShot("After login try");
+				}
+				else if(Util.isElementPresent("closeAdd_id"))
+					Util.getElement("closeAdd_id").click();
+				else if(driver.findElement(By.id("com.mindsarray.pay1:id/addBalanceIcon")).isDisplayed()) { 
 					fail =false ;
+					System.out.println("Pass");
 					test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";
-				}else {
+				}
+				else {
 					fail= true; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";
 				}
 			}
