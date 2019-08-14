@@ -63,7 +63,7 @@ public class Excel_Reader {
 		}
 	}
 
-	/** Getting the cell data when the user have the colName so the method accept STRING, STRING, INTEGER */
+	/** Getting the cell data when	 the user have the colName so the method accept STRING, STRING, INTEGER */
 	public String getCellData(String sheetName, String colName, int rowNum) {
 		try {
 			if(rowNum<=0)

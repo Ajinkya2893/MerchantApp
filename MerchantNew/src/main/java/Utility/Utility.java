@@ -19,7 +19,7 @@ import org.testng.Assert;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class Utility {//extends BaseTest{
+public class Utility {
 
 	public static WebDriver driver;
 	public Properties prop;
@@ -89,7 +89,7 @@ public class Utility {//extends BaseTest{
 		js.executeScript("window.scrollTo(0,"+(y-200)+")");
 		return Constants.PASS; 
 	}
-	public String wait(String timeout) {
+	public String waitfor(String timeout) {
 
 		try {
 			Thread.sleep(Integer.parseInt(timeout));
@@ -125,20 +125,19 @@ public class Utility {//extends BaseTest{
 
 			if(locatorKey.endsWith("_id"))
 				e = driver.findElements(By.id(prop.getProperty(locatorKey)));
-			else if(locatorKey.endsWith("_xpath")){
+			else if(locatorKey.endsWith("_xpath"))
 				e = driver.findElements(By.xpath(prop.getProperty(locatorKey)));
-			}
 			else if(locatorKey.endsWith("_name"))
 				e = driver.findElements(By.name(prop.getProperty(locatorKey)));
 			else if(locatorKey.endsWith("_className"))
 				e = driver.findElements(By.className(prop.getProperty(locatorKey)));
 
 			if(e.size()==0){
-				//System.out.println("Element not found");
+				test.log(LogStatus.FAIL, "Desired element not FOUND "+ locatorKey);
 				return false;
 			}
 			else {
-				//System.out.println("Element found");
+				test.log(LogStatus.PASS, "Desired Element is present "+ locatorKey);
 				return true;
 			}
 		}

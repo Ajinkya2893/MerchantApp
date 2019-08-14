@@ -15,11 +15,11 @@ import Utility.Constants;
 import Utility.Excel_Reader;
 import Utility.ExtentManager;
 import Utility.Utility;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.AppiumDriver;
 
 public class TransactionHistory extends AppBase{
 	
-	public TransactionHistory(ExtentTest test, @SuppressWarnings("rawtypes") AndroidDriver driver){
+	public TransactionHistory(ExtentTest test, AppiumDriver driver){
 		try {
 			prop = new Properties();
 			FileInputStream fs = new FileInputStream(Constants.Properties_file_path); //Object repository path

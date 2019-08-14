@@ -20,7 +20,7 @@ import Utility.DataUtils;
 import Utility.Excel_Reader;
 import Utility.ExtentManager;
 import Utility.Utility;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.AppiumDriver;
 
 public class RetailerLogin extends AppBase{
 	static int count=-1;
@@ -67,7 +67,7 @@ public class RetailerLogin extends AppBase{
 	}
 
 	@SuppressWarnings("rawtypes")
-	public AndroidDriver getLogin(Hashtable<String,String> data) throws InterruptedException {
+	public AppiumDriver getLogin(Hashtable<String,String> data) throws InterruptedException {
 		count++;
 		try{
 			if (data.get("Runmode").equalsIgnoreCase("N")){
@@ -78,8 +78,11 @@ public class RetailerLogin extends AppBase{
 				throw new SkipException("Skipping the test as runmode is N");
 			}
 			LaunchApp();
-			SwipeScreens();
-			navigateToLogin();
+			//SwipeScreens();
+			SelectLaunguage();
+			//navigateToLogin();
+			newProfileLogin();
+			Util =  new Utility(test, driver);
 			msg ="Passed";
 			driver.findElement(By.id(prop.getProperty("Username"))).click();
 			driver.findElement(By.id(prop.getProperty("Username"))).sendKeys(data.get("Username")); test.log(LogStatus.INFO, "Entering the UserName");
@@ -87,22 +90,34 @@ public class RetailerLogin extends AppBase{
 			driver.hideKeyboard();
 			Thread.sleep(1000);
 			driver.findElement(By.id(prop.getProperty("LoginSubmit"))).click(); test.log(LogStatus.PASS, "Clicking On Submit Button");
-			if(new Utility(test, driver).isElementPresent("OK_xpath"))
-				driver.findElement(By.xpath(prop.getProperty("OK_xpath"))).click();
-			Util = new Utility(test, driver);Util.takeScreenShot("After login try");
-			if(driver.findElement(By.id("com.mindsarray.pay1:id/addBalanceIcon")).isDisplayed()) { 
-				fail =false ;
-				test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";
-			}else {
-				fail= true; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";
+
+			if(Util.isElementPresent("wrongpasswdmsz_id")) {
+				msg = "Verify the entered username and password is wrong";
+				Util.takeScreenShot(msg);
+				Util.getElement("wrongpasswdbtn_id").click();
+				fail= true; test.log(LogStatus.FAIL, msg);
+
+			}
+			else if(Util.isElementPresent("otpfield_id")) {
+				otpFlag = true;
+				getOtp("123456");
+				if(Util.isElementPresent("OK_xpath"))
+					driver.findElement(By.xpath(prop.getProperty("OK_xpath"))).click();
+				Util.takeScreenShot("After login try");
+				if(driver.findElement(By.id("com.mindsarray.pay1:id/addBalanceIcon")).isDisplayed()) { 
+					fail =false ;
+					test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";
+				}else {
+					fail= true; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";
+				}
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			new Utility(test, driver).takeScreenShot("Unable to Access Login Page and Get Login");
-			test.log(LogStatus.ERROR, "Unable to Access Login Page and Get Login");
-			fail = true;
 			msg ="Unable to Access Login Page and Get Login";
+			e.printStackTrace();
+			Util.takeScreenShot(msg);
+			test.log(LogStatus.ERROR, msg);
+			fail = true;
 		}
 		return driver;
 	} 
