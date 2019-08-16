@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
 import org.testng.SkipException;
 
 import com.relevantcodes.extentreports.ExtentReports;
@@ -26,7 +27,7 @@ public class AppBase {
 	public ExtentReports rep;
 	public ExtentTest test;
 	public Properties prop;
-	public AppiumDriver driver;
+	public AppiumDriver<?> driver;
 	public static Utility Util;
 	public boolean testend = true;
 	public boolean otpFlag = false;
@@ -119,6 +120,7 @@ public class AppBase {
 				if(Util.isElementPresent("wrongpasswdbtn_id")) {
 					Util.takeScreenShot("Wrong otp entered please re try agian");
 					test.log(LogStatus.FAIL, "Otp did not matched ");
+					Assert.fail("The Entered OTP did not matched");
 				}
 				Util.takeScreenShot("Verify the user is logged in");
 				set_Hindi_Language = getLaunguage();

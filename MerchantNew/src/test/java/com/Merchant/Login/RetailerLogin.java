@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -96,29 +97,38 @@ public class RetailerLogin extends AppBase{
 				Util.takeScreenShot(msg);
 				Util.getElement("wrongpasswdbtn_id").click();
 				fail= true; test.log(LogStatus.FAIL, msg);
+				Assert.fail("Entered Wrong Username or Password");
 
 			}
 			else if(Util.isElementPresent("otpfield_id")) {
 				otpFlag = true;
 				getOtp("123456");
-				
+
 			}
-			else {
-				if(Util.isElementPresent("OK_xpath")) {
+			else if(Util.isElementPresent("OK_xpath") || Util.isElementPresent("closeAdd_id")) {
+				if(Util.isElementPresent("OK_xpath")){
 					driver.findElement(By.xpath(prop.getProperty("OK_xpath"))).click();
 					Util.takeScreenShot("After login try");
 				}
 				else if(Util.isElementPresent("closeAdd_id"))
 					Util.getElement("closeAdd_id").click();
-				else if(driver.findElement(By.id("com.mindsarray.pay1:id/addBalanceIcon")).isDisplayed()) { 
+
+			}else if(Util.isElementPresent("balengtext_xpath") || Util.isElementPresent("balhintext_xpath")) {
+				 if (Util.isElementPresent("balengtext_xpath")) { 
+					fail =false ;
+					System.out.println("Pass");
+					test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";
+				}else if(Util.isElementPresent("balhintext_xpath")) {
+					set_Hindi_Language = true;
 					fail =false ;
 					System.out.println("Pass");
 					test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";
 				}
-				else {
-					fail= true; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";
-				}
 			}
+			else {
+				fail= true; test.log(LogStatus.FAIL, "User does not got Login"); msg ="User does not got Login";
+			}
+
 		}
 		catch (Exception e) {
 			msg ="Unable to Access Login Page and Get Login";

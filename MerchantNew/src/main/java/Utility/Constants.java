@@ -3,8 +3,8 @@ package Utility;
 public class Constants {
 
 	//Properties file path
-	public static final String Properties_file_path = System.getProperty("user.dir")+"/src/test/resources/Merchant.properties";
-	public static final String ReProperties_file_path = System.getProperty("user.dir")+"/src/test/resources/Remit.properties";
+	public static final String Properties_file_path = System.getProperty("user.dir")+"/src/test/resources/objectRepository/Merchant.properties";
+	public static final String ReProperties_file_path = System.getProperty("user.dir")+"/src/test/resources/objectRepository/Remit.properties";
 	//ExcelSheets paths 
 	public static final String Remit = System.getProperty("user.dir")+"//ExcelReader//Remit.xlsx";
 	public static final String RetailerLogin = System.getProperty("user.dir")+"//ExcelReader//MerchantApp.xlsx";
