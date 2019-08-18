@@ -78,10 +78,15 @@ public class PrepaidRecharge extends AppBase
 			Util.getElement("mobileNumber_id").sendKeys(data.get("Mobile"));	test.log(LogStatus.INFO, "Entering the MobileNumber");
 			Util.getElement("amountValue_id").sendKeys(data.get("Amount")); 	test.log(LogStatus.INFO, "Entering the Amount");
 			//driver.hideKeyboard();
-			Thread.sleep(1000);
-			driver.findElement(By.id(prop.getProperty("rechargeButton"))).click();test.log(LogStatus.INFO, "Clicking on Recharge button");
-			System.out.println(driver.findElement(By.id(prop.getProperty("confirmationBox"))).getText());// Pop confirmation
-			driver.findElement(By.id(prop.getProperty("confirmOkButton"))).click();new Utility(test, driver).takeScreenShot("Capturing the Confirmation box");//Enter button1 for confirming the amount
+			Util.waitfor("1000");
+			Util.getElement("rechargeButton_id").click();			test.log(LogStatus.INFO, "Clicking on Recharge button");
+			
+			System.out.println(Util.getElement("confirmationBox_id").getText());// Pop confirmation
+			
+			Util.getElement("confirmOkButton_id").click();
+			Util.takeScreenShot("Capturing the Confirmation box");//Enter button1 for confirming the amount
+			
+			
 			if(driver.findElement(By.className("android.widget.RelativeLayout")).isDisplayed()){
 				Util.takeScreenShot("");
 				driver.findElement(By.id(prop.getProperty("selectoperator"))).click();

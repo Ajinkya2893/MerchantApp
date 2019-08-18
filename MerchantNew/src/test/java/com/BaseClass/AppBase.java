@@ -65,7 +65,7 @@ public class AppBase {
 
 			capabilities.setCapability("appPackage", "com.mindsarray.pay1");
 			capabilities.setCapability("appActivity", "com.mindsarray.pay1.ui.intro.LanguageSplashActivity");
-
+		
 			driver = new AppiumDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			test.log(LogStatus.PASS, "Successfully Launched the Application");
