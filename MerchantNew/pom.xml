@@ -19,24 +19,8 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.1.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.21.0</version>
-					<configuration>
-						<suiteXmlFiles>
-						<!-- 	<suiteXmlFile>src/test/resources/remit.xml</suiteXmlFile>
-							<suiteXmlFile>src/test/resources/shop.xml</suiteXmlFile>     -->
-						</suiteXmlFiles>
-					</configuration>
-				</plugin>
-
-				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.7.0</version>
+					<version>3.8.1</version>
 					<configuration>
 						<source>8</source>
 						<target>8</target>
@@ -50,23 +34,26 @@
 		<!-- Java mail api -->
 		<dependency>
 			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
 		</dependency>
 
 
 		<!-- Testng -->
+		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.13.1</version>
-			<scope>test</scope>
+			<version>6.8</version>
+			<scope>compile</scope>
 		</dependency>
+
+
 
 		<dependency>
 			<groupId>org.apache.maven.surefire</groupId>
 			<artifactId>surefire</artifactId>
-			<version>2.20.1</version>
+			<version>3.0.0-M3</version>
 			<type>pom</type>
 		</dependency>
 
@@ -75,14 +62,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.141.59</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-firefox-driver</artifactId>
-			<version>3.141.59</version>
+			<version>4.0.0-alpha-2</version>
 		</dependency>
 
 		<dependency>
@@ -95,49 +75,44 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>3.141.59</version>
+			<version>4.0.0-alpha-2</version>
 		</dependency>
 
 
 		<!-- POI -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.17</version>
+			<version>4.1.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.17</version>
+			<version>4.1.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>3.17</version>
+			<version>4.1.0</version>
 		</dependency>
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.xmlbeans/xmlbeans -->
 		<dependency>
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
-			<version>2.6.0</version>
+			<version>3.1.0</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
 		<dependency>
 			<groupId>io.appium</groupId>
 			<artifactId>java-client</artifactId>
-			<version>7.0.0</version>
+			<version>7.1.0</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson <dependency> 
-			<groupId>com.google.code.gson</groupId> <artifactId>gson</artifactId> <version>2.8.1</version> 
-			</dependency> <dependency> <groupId>io.selendroid</groupId> <version>0.17.0</version> 
-			<artifactId>selendroid-standalone</artifactId> </dependency> <dependency> 
-			<groupId>io.selendroid</groupId> <version>0.17.0</version> <artifactId>selendroid-client</artifactId> 
-			</dependency> -->
 	</dependencies>
 </project>

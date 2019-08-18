@@ -44,7 +44,6 @@ public class Excel_Reader {
 			sheet = workbook.getSheetAt(0);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Assert.fail("No such file or directory");
 		}
@@ -92,9 +91,9 @@ public class Excel_Reader {
 			if(cell == null)
 				return ""; //When the cell does not exist/null return null
 
-			if(cell.getCellTypeEnum()==CellType.STRING)
+			if(cell.getCellType()==CellType.STRING)
 				return cell.getStringCellValue(); //Returns the string value
-			else if(cell.getCellTypeEnum()==CellType.NUMERIC || cell.getCellTypeEnum()==CellType.FORMULA) {
+			else if(cell.getCellType()==CellType.NUMERIC || cell.getCellType()==CellType.FORMULA) {
 				//Check the celltype by numeric and formula realted 
 				String cellText = String.valueOf(cell.getNumericCellValue());
 				if(HSSFDateUtil.isCellDateFormatted(cell)) {
@@ -110,7 +109,7 @@ public class Excel_Reader {
 							cal.get(Calendar.MONTH)+1+ "/" +
 							cellText;
 				}return cellText; //Format the date in the year month and date 
-			}else if(cell.getCellTypeEnum()==CellType.BLANK)
+			}else if(cell.getCellType()==CellType.BLANK)
 				return ""; // Returns when the data is blank 
 			else
 				return String.valueOf(cell.getBooleanCellValue());
@@ -139,13 +138,13 @@ public class Excel_Reader {
 			if(cell==null) 
 				return "";
 
-			if(cell.getCellTypeEnum()==CellType.STRING)
+			if(cell.getCellType()==CellType.STRING)
 				return cell.getStringCellValue(); //Return the String value
-			else if(cell.getCellTypeEnum()==CellType.NUMERIC || cell.getCellTypeEnum()==CellType.FORMULA) {
+			else if(cell.getCellType()==CellType.NUMERIC || cell.getCellType()==CellType.FORMULA) {
 				String cellText = String.valueOf(cell.getNumericCellValue());
 				return cellText;
 			}
-			else if(cell.getCellTypeEnum()==CellType.BLANK)
+			else if(cell.getCellType()==CellType.BLANK)
 				return "";
 			else
 				return String.valueOf(cell.getBooleanCellValue());

@@ -92,34 +92,30 @@ public class RetailerLogin extends AppBase{
 			Thread.sleep(1000);
 			driver.findElement(By.id(prop.getProperty("LoginSubmit"))).click(); test.log(LogStatus.PASS, "Clicking On Submit Button");
 
-			if(Util.isElementPresent("wrongpasswdmsz_id")) {
-				msg = "Verify the entered username and password is wrong";
-				Util.takeScreenShot(msg);
-				Util.getElement("wrongpasswdbtn_id").click();
-				fail= true; test.log(LogStatus.FAIL, msg);
-				Assert.fail("Entered Wrong Username or Password");
 
+			// Pre check to avoid response time
+			if(Util.isElementPresent("wrongpasswdmsz_id") || Util.isElementPresent("otpfield_id")) { 
+				if(Util.isElementPresent("wrongpasswdmsz_id")) {
+					msg = "Verify the entered username and password is wrong";
+					Util.takeScreenShot(msg);
+					Util.getElement("wrongpasswdbtn_id").click();
+					fail= true; 
+					test.log(LogStatus.FAIL, msg);
+					Assert.fail(msg);
+				}
+				else if(Util.isElementPresent("otpfield_id")) {
+					otpFlag = true;
+					getOtp("123456");
+				}
 			}
-			else if(Util.isElementPresent("otpfield_id")) {
-				otpFlag = true;
-				getOtp("123456");
-
-			}
-			else if(Util.isElementPresent("OK_xpath") || Util.isElementPresent("closeAdd_id")) {
-				if(Util.isElementPresent("OK_xpath")){
+			if (Util.isElementPresent("OK_xpath") || Util.isElementPresent("closeAdd_id") || Util.isElementPresent("addBal_id")){
+				if(Util.isElementPresent("OK_xpath")) {
 					driver.findElement(By.xpath(prop.getProperty("OK_xpath"))).click();
 					Util.takeScreenShot("After login try");
 				}
 				else if(Util.isElementPresent("closeAdd_id"))
 					Util.getElement("closeAdd_id").click();
-
-			}else if(Util.isElementPresent("balengtext_xpath") || Util.isElementPresent("balhintext_xpath")) {
-				 if (Util.isElementPresent("balengtext_xpath")) { 
-					fail =false ;
-					System.out.println("Pass");
-					test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";
-				}else if(Util.isElementPresent("balhintext_xpath")) {
-					set_Hindi_Language = true;
+				if(Util.isElementPresent("addBal_id")) { 
 					fail =false ;
 					System.out.println("Pass");
 					test.log(LogStatus.PASS, "Sucessfully Logged into Application"); msg="Sucessfully Logged into Application";

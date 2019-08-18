@@ -27,7 +27,8 @@ public class AppBase {
 	public ExtentReports rep;
 	public ExtentTest test;
 	public Properties prop;
-	public AppiumDriver<?> driver;
+	@SuppressWarnings("rawtypes")
+	public AppiumDriver driver;
 	public static Utility Util;
 	public boolean testend = true;
 	public boolean otpFlag = false;
@@ -113,20 +114,24 @@ public class AppBase {
 		if(otpFlag) {
 			Util = new Utility(test, driver);
 			if(Util.isElementPresent("otpfield_id")) {
-				driver.findElement(By.id(prop.getProperty("otpfield_id"))).sendKeys(otpNum);
-				driver.findElement(By.id(prop.getProperty("otpButton_id"))).click();
+				driver.findElement(By.id(prop.getProperty("otpfield_id"))).sendKeys(otpNum); test.log(LogStatus.INFO, "Entering the OTP number");
+				driver.findElement(By.id(prop.getProperty("otpButton_id"))).click(); test.log(LogStatus.INFO, "Clicking on the OTP button");
 				Util.waitfor("5000");
 				
 				if(Util.isElementPresent("wrongpasswdbtn_id")) {
 					Util.takeScreenShot("Wrong otp entered please re try agian");
 					test.log(LogStatus.FAIL, "Otp did not matched ");
-					Assert.fail("The Entered OTP did not matched");
+					Assert.fail("Wrong otp entered please re try agian");
 				}
 				Util.takeScreenShot("Verify the user is logged in");
 				set_Hindi_Language = getLaunguage();
 			}
 			test.log(LogStatus.INFO, "The Otp Screen is not Displayed");
 		}
+	}
+	
+	public void hideKeyboard() {
+		
 	}
 
 	public void SwipeScreens() throws InterruptedException {

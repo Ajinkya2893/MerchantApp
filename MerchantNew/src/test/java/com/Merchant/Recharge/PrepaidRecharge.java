@@ -1,8 +1,6 @@
 package com.Merchant.Recharge;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Properties;
 
@@ -37,11 +35,15 @@ public class PrepaidRecharge extends AppBase
 
 	private PrepaidRecharge(){
 		try {
+			prop = new Properties();
+			FileInputStream fs = new FileInputStream(Constants.Properties_file_path); //Object repository path
+			prop.load(fs);
 			xls = new Excel_Reader(Constants.RetailerLogin); // Loading the Excel Sheet 
 			rep = ExtentManager.getInstance(); // Getting the Extent Report Instance 
 			test  = rep.startTest(this.getClass().getSimpleName()); //Starting the Extent Report test
 
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Unable to run this class and create any instance");
 		}
@@ -62,27 +64,24 @@ public class PrepaidRecharge extends AppBase
 		count++;
 		try {
 			this.driver = new RetailerLogin().getLogin(data);
-			checkLang();
 			Thread.sleep(3000);
 			Util = new Utility(this.test, this.driver);
 			Util.takeScreenShot("Successfully Logged in");
 			test.log(LogStatus.PASS, "Successfully logged in the System");
-			Util.getElement(prop.getProperty("mobileIcon_xpath")).click();	test.log(LogStatus.INFO, "Clicking on MobileIcon");
-
-			Util.getElement(prop.getProperty("selectProduct_xpath")).click();		test.log(LogStatus.INFO, "Selecting the Product");//Idea change any service provider needed
-			Util.waitfor("1000");
-			Util.getElement(prop.getProperty("mobileNumber_id")).sendKeys(data.get("Mobile"));	test.log(LogStatus.INFO, "Entering the MobileNumber");
 			
-			Util.getElement(prop.getProperty("amountValue_id")).sendKeys(data.get("Amount"));	test.log(LogStatus.INFO, "Entering the Amount");
+			//Clicking the <mobile> and selecting the product <IDEA>
+			Util.getElement("mobileIcon_xpath").click();	test.log(LogStatus.INFO, "Clicking on MobileIcon");
+			Util.getElement("selectProduct_xpath").click();		test.log(LogStatus.INFO, "Selecting the Product"); //Idea change any service provider needed
 			Util.waitfor("1000");
 			
-			Util.getElement(prop.getProperty("rechargeButton_id")).click();		test.log(LogStatus.INFO, "Clicking on Recharge button");
-			
-			System.out.println(Util.getElement(prop.getProperty("confirmationBox_id")).getText());// Pop confirmation
-			
-			Util.getElement(prop.getProperty("confirmOkButton_id")).click();	 Util.takeScreenShot("Capturing the Confirmation box");//Enter button1 for confirming the amount
-			
-			
+			//Entering the <Mobile number> and <AMount>
+			Util.getElement("mobileNumber_id").sendKeys(data.get("Mobile"));	test.log(LogStatus.INFO, "Entering the MobileNumber");
+			Util.getElement("amountValue_id").sendKeys(data.get("Amount")); 	test.log(LogStatus.INFO, "Entering the Amount");
+			//driver.hideKeyboard();
+			Thread.sleep(1000);
+			driver.findElement(By.id(prop.getProperty("rechargeButton"))).click();test.log(LogStatus.INFO, "Clicking on Recharge button");
+			System.out.println(driver.findElement(By.id(prop.getProperty("confirmationBox"))).getText());// Pop confirmation
+			driver.findElement(By.id(prop.getProperty("confirmOkButton"))).click();new Utility(test, driver).takeScreenShot("Capturing the Confirmation box");//Enter button1 for confirming the amount
 			if(driver.findElement(By.className("android.widget.RelativeLayout")).isDisplayed()){
 				Util.takeScreenShot("");
 				driver.findElement(By.id(prop.getProperty("selectoperator"))).click();
@@ -124,7 +123,7 @@ public class PrepaidRecharge extends AppBase
 
 	@AfterTest
 	public void reportTestResult(){
-		if(skip)	
+		if(skip)
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Skip");
 		if(isTestPass)
 			DataUtils.reportDataSetResult(xls, "TestCase",DataUtils.getRowNum(xls,this.getClass().getSimpleName()), "Pass");
@@ -137,25 +136,6 @@ public class PrepaidRecharge extends AppBase
 	@DataProvider
 	public Object[][] getData(){
 		return DataUtils.getData(xls, this.getClass().getSimpleName(),this.getClass().getSimpleName());
-	}
-	
-	public void checkLang() {
-		try {
-			prop = new Properties();
-			if(set_Hindi_Language) {
-				FileInputStream hindi = new FileInputStream(Constants.Properties_file_path); //Object repository path
-				prop.load(hindi);
-			}else {
-				FileInputStream english = new FileInputStream(Constants.Properties_file_path); //Object repository path
-				prop.load(english);
-			}
-		} catch (FileNotFoundException e) {
-			test.log(LogStatus.FAIL, "Unable to load or find the file ");
-			e.printStackTrace();
-		} catch (IOException e) {
-			test.log(LogStatus.FAIL, "Unable to create the object of PROPERTY FILE");
-			e.printStackTrace();
-		}
 	}
 
 }
